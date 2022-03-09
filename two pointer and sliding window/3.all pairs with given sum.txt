@@ -1,0 +1,36 @@
+Find all pairs with given sum
+
+#include<bits/stdc++.h>
+using namespace std;
+void findpair(int arr[],int n,int k)
+{
+	sort(arr,arr+n);
+	bool found=false;
+	
+	int start=0;
+	int end=n-1;
+	
+	while(start<=end)
+	{
+		if(arr[start]+arr[end]==k)
+		{
+			cout<<"Pair found: "<<arr[start]<<" "<<arr[end]<<endl;
+			found=true;	
+		}
+		if(arr[start]+arr[end]<k)
+		start++;
+		 else
+		end--;
+}
+if(found==false)
+cout<<"No pair found "<<end; 
+	
+}
+int main(){
+	int arr[]={ 8, 7, 2, 5, 3, 1 };
+	int n=sizeof(arr)/sizeof(arr[0]);
+	int k=10;
+	
+	findpair(arr,n,k);
+	
+}

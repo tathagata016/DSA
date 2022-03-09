@@ -1,0 +1,338 @@
+Intro 
+
+#include<bits/stdc++.h>
+using namespace std;
+class priorityqueue{
+	vector<int> pq;
+	
+	public:
+		priorityqueue()
+		{
+			
+		}
+		
+		bool isEmpty()
+		{
+			return pq.size()==0;
+		}
+		
+		int getsize()
+		{
+		return pq.size();
+		}
+		
+		int getMin(){
+			if(pq.size()>0)
+			return pq[0];
+		}
+		
+		void insert(int element){
+			pq.push_back(element);
+			
+			int childindex=pq.size()-1;
+			
+			while(childindex>0){
+			int parentindex=(childindex-1)/2;
+			
+			if(pq[childindex]<pq[parentindex]){
+			swap(pq[childindex],pq[parentindex]);
+		}
+		
+		else
+		break;
+			
+			childindex=parentindex;
+		}  
+		}
+		
+		int delmin( ){
+			if(isEmpty())
+			{
+				return 0;
+			}
+			int ans=pq[0];
+			pq[0]=pq[pq.size()-1];
+			pq.pop_back();
+			
+			//down-heapify
+			
+			int parentindex=0;
+			int lchild=(2*parentindex)+1;
+			int rchild=(2*parentindex)+2;
+			
+			while(lchild<pq.size()){
+				int minindex=parentindex;
+				
+				if(pq[minindex]>pq[lchild])
+				minindex=lchild;
+				
+			if(rchild<pq.size() && pq[minindex]>pq[rchild])
+				minindex=rchild;
+				
+			if(minindex == parentindex)
+			break;	
+				
+				swap(pq[minindex],pq[parentindex]);
+				
+				parentindex=minindex;
+				 rchild=(2*parentindex)+1;
+			     lchild=(2*parentindex)+2;
+			
+			}
+			
+			return ans;
+		}
+};
+
+int main(){
+	priorityqueue p;
+	
+	
+	    p.insert(100);
+	    p.insert(10);
+		p.insert(15);
+		p.insert(4);
+	    p.insert(17);
+	    p.insert(21);
+	    p.insert(57);	
+	  
+	  cout<<p.getsize()<<endl;
+	  cout<<p.getMin()<<endl;
+	  
+	  while(!p.isEmpty()){
+	  cout<<p.delmin()<<" ";
+}
+ cout<<endl;
+}
+..............................................................................................
+Heap sort-
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void heapsort(int pq[],int n){
+	
+	for(int i=1;i<n;i++){
+		// considering input[0] is in heap
+		
+	int childindex=i;
+	while(childindex>0){
+	int parentindex=(childindex-1)/2;
+	
+	if(pq[childindex]<pq[parentindex])
+	swap(pq[childindex],pq[parentindex]);
+
+else
+break;
+childindex=parentindex;
+}
+	}
+	
+	int size=n;
+	while(size>1){
+swap(pq[0],pq[size-1]);
+size--;
+
+int parentindex=0;
+int lchild=(2*parentindex)+1;
+int rchild=(2*parentindex)+2;
+
+while(lchild<size){
+	int minindex=parentindex;
+	
+	if(pq[minindex]>pq[lchild])
+	minindex=lchild;
+	
+	if(rchild<size && pq[minindex]>pq[rchild])
+	minindex=rchild;
+	
+	if(minindex==parentindex)
+	break;
+	
+	swap(pq[minindex],pq[parentindex]);
+	
+	parentindex=minindex;
+	 lchild=(2*parentindex)+1;
+	 rchild=(2*parentindex)+2;
+	
+}
+	
+}
+
+}
+int main()
+{
+int pq[]={5,1,2,0,8};
+heapsort(pq,5);
+for(int i=0;i<5;i++){
+	cout<<pq[i]<<" ";
+}
+cout<<endl;
+}
+..............................................................................................
+k sorted array
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void ksortedarray(int input[],int n,int k ){
+	priority_queue<int> pq;
+	//for first k terms
+	for(int i=0;i<k;i++)
+	{
+		pq.push(input[i]);
+		
+	}
+	//for middle terms
+	int j=0; //index of sorted array
+	for(int i=k;i<n;i++){
+	 input[j]=pq.top();
+	 pq.pop();
+	 pq.push(input[i]);
+	 j++;
+	 	}
+	 	//for last k term
+	 	while(!pq.empty())
+	 	{
+	 		input[j]=pq.top();
+	 		pq.pop();
+	 		j++;
+		 }
+}
+
+int main(){
+	int input[]={ 10,12,6,7,9};
+	int k=3;
+	int n=sizeof(input)/sizeof(input[0]);
+	
+	ksortedarray(input,n,k);
+	cout<<"Array is: ";
+	for(int i=0;i<n;i++){
+	cout<<input[i]<<" ";
+	}
+	cout<<endl;
+}
+.............................................................................................
+Min heap implementation
+#include<iostream>
+#include<queue>
+using namespace std;
+
+priority_queue<int,vector<int>,greater<int>> pq;
+
+...............................................................................................
+Kth smallest
+
+#include<bits/stdc++.h>               
+using namespace std;
+
+int kthsmallest(int arr[],int n,int k)
+{
+	priority_queue<int> pq; 
+  for(int i=0;i<k;i++){
+	pq.push(arr[i]);
+}
+
+for(int i=k;i<n;i++)
+{
+	if(pq.top()>arr[i]){
+	pq.pop();
+	pq.push(arr[i]);
+}
+}
+
+return pq.top();
+}
+
+int main()
+{
+	int arr[]={7, 10, 4, 3, 20, 15} ;
+	int n=sizeof(arr)/sizeof(arr[0]);
+	int k=3;
+	cout<<"Kth smallest element is: "<<kthsmallest(arr,n,k);
+}
+...............................................................................................
+Check if a given Binary Tree is Heap
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node{
+	int data;
+	node* left;
+	node* right;
+	
+	node(int val)
+	{
+		data=val;
+		left=NULL;
+		right=NULL;
+	}
+};
+bool isHeap(node* root)
+{
+	if(root==NULL)
+	return true;
+	
+	queue<node* > q;
+	q.push(root);
+	
+	bool seen=false;
+	while(!q.empty())
+	{
+	node* n=q.front();
+	q.pop();
+	
+	if(n->left)
+	{
+		if(seen || n->left->data > n->data)
+		return false;
+		
+	q.push(n->left);
+		
+	}
+	
+	else{
+	seen =true;
+}
+	
+	if(n->right)
+	{
+		if(seen || n->right->data > n->data)
+		return false;
+		
+		q.push(n->right);
+	}
+	
+	else {
+	seen =true;
+	
+}
+	
+	}
+	return true;
+}
+int main()
+{
+    node* root = NULL;
+    root = new node(10);
+    root->left = new node(9);
+    root->right = new node(8);
+    root->left->left = new node(7);
+    root->left->right = new node(6);
+    root->right->left = new node(5);
+    root->right->right = new node(4);
+    root->left->left->left = new node(3);
+    root->left->left->right = new node(2);
+   root->left->right->left = new node(1);
+ 
+     //Function call
+    if (isHeap(root))
+        cout << "Given binary tree is a Heap\n";
+    else
+        cout << "Given binary tree is not a Heap\n";
+ 
+    return 0;
+}
+..............................................................................................
+

@@ -1,0 +1,40 @@
+Find the closest pair from two sorted arrays
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void closestpair(int arr1[],int arr2[],int m,int n,int k)
+{
+	int diff=INT_MAX;
+	
+	int start=0; //starting from the left side of arr1
+	int end=n-1; //starting from the right side of arr2
+	
+	int resa1=0;
+	int resa2=0;
+	
+	while(start<m && end>0)
+	{
+		if(abs(arr1[start]+arr2[end]-k)<diff)
+		{
+			resa1=start;
+			resa2=end;
+			diff=abs(arr1[start]+arr2[end]-k);
+		}
+	
+	if(arr1[start]+arr2[end]<k)
+	start++;
+	else
+	end--;
+}
+cout << "The closest pair is: " << arr1[resa1] << ", " << arr2[resa2] << endl;
+ } 
+ int main(){
+ 	int arr1[] = {1, 4, 5, 7};
+    int arr2[] = {10, 20, 30, 40};
+    int m = sizeof(arr1)/sizeof(arr1[0]);
+    int n = sizeof(arr2)/sizeof(arr2[0]);
+    int k = 25;
+    closestpair(arr1, arr2, m, n, k);
+    return 0;
+ }

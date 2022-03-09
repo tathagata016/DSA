@@ -1,0 +1,44 @@
+Write a program to find the longest Palindrome in a string.[ Longest palindromic Substring]
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int longestpal(string str)
+{
+	int n=str.size();
+	if(n<2)
+	return n;
+	
+	int maxlength=1,start=0;
+	int low ,high;
+	for(int i=0;i<n;i++)
+	{
+		low=i-1;
+		high=i+1;
+		while(high<n && str[high]==str[i])
+		high++;
+		while(low>=0 && str[low]==str[i])
+		low--;
+		while(low>=0 && high<n && str[high]==str[low])
+		{
+			low--;
+			high++;
+		}
+		int length=high-low-1;
+		if(maxlength<length){
+		maxlength=length;
+		start=low+1;
+	}
+}
+
+cout<<"Longest palindrome substring is: "<<str.substr(start,maxlength)<<endl;
+return maxlength;
+}
+
+int main()
+{
+	string str="forgeeksskeegfor";
+	cout<<"Length is: "<<longestpal(str);
+	
+}

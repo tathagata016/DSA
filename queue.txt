@@ -1,0 +1,184 @@
+Intro to queue
+#include<bits/stdc++.h>
+ 	using namespace std;
+ 	
+ 	#define n 20
+ 	
+ 	class Queue{
+ 		int *arr;
+ 		int front;
+ 		int rear;
+ 		
+ 		public:
+ 			Queue(){
+ 				arr=new int[n];
+ 				front=-1;
+				 rear=-1;
+			 }
+			 
+			 void push(int x)
+			 {
+			 	if(rear==n-1){
+			 	cout<<"Queue is overflow";
+			 	return;
+			 }
+			 rear++;
+			 arr[rear]=x;
+			 
+			 if(front==-1)
+			 front++;
+			 }
+			 
+			 void pop(){
+			 	if(front==-1 || front>rear)
+			 	{
+			 		cout<<"No element in queue";
+			 		return;
+				 }
+				 front++;
+			 }
+			 
+			 int peek(){
+			 	if(front==-1 || front>rear)
+			 	{
+			 		cout<<"No element in queue";
+			 		return -1;
+			 }
+			 return arr[front];
+		}
+		
+		bool empty(){
+			if(front==-1 || front>rear)
+			return true;
+			else
+			return false;
+		}		 
+	 };
+	 
+	 int main()
+	 {
+	 	Queue q;
+	 	q.push(9);
+	 	q.push(2);
+	 	q.push(3);
+	 	
+	 	cout<<q.peek()<<endl;
+	 	q.pop();
+	 	return 0;
+	 }
+.............................................................................................
+Queue using linked list-
+
+#include<bits/stdc++.h>
+	 using namespace std;
+	 struct node{
+	 	int data;
+	 	node* link;
+	 
+	 node(int val){
+	 	data=val;
+	 	link=NULL;
+	 }
+};
+
+     struct Queue{
+     	node* front;
+     	node* rear;
+     	Queue()
+     	{
+     		front=rear=NULL;
+		 }
+		 void push(int x){
+		 	node* n=new node(x);
+		 	
+		 	
+		 	if(rear==NULL){
+		 		rear=front=n;
+			 }
+			 
+		
+		 	rear->link=n;
+		 	n=rear;
+		 }
+		 void pop(){
+		 	if(front==NULL)
+		 	return; 
+		 	
+		 	node* del=front;
+		 	front=front->link;
+		 	
+		 	delete del;
+		 }
+     	
+     	int peek(){
+     		if(front==NULL){
+     			cout<<"Underflow";
+     			return -1;
+			 }
+			 return front->data;
+		 }
+	 };
+	 
+	 int main(){
+	 	Queue q;
+	 	
+	 	q.push(9);
+	 	q.push(8);
+	 	q.push(5);
+	 	
+	 	cout<<q.peek()<<endl;
+	 	q.pop();
+	 	cout<<q.peek()<<endl;
+	 	q.pop();
+	 	cout<<q.peek()<<endl;
+	 	q.pop();
+	 }
+.............................................................................................
+Queue using stack
+
+#include<bits/stdc++.h>
+	 using namespace std;
+	 
+	 class Queue{
+	 	stack<int> st1;
+	 	stack<int> st2;
+	 	
+	 	public:
+	 		void push(int x){
+	 			st1.push(x);
+		 }
+		 
+		 int pop(){
+		 	if(st1.empty() && st2.empty())
+		 	{
+		 		cout<<"All stack empty";
+			 }
+			 if(st2.empty())
+			 {
+			 	while(!st1.empty()){
+			 		st2.push(st1.top());
+			 		st1.pop();
+				 }
+			 }
+			 	int val=st2.top();
+			 	st2.pop();
+			 	return val;
+			 }
+		 
+		 
+	 };
+	 
+	 int main()
+	 {
+	 	Queue q;
+	 	q.push(1);
+	 	q.push(2);
+	 	q.push(3);
+	 	cout<<q.pop()<<"\n";
+	 	cout<<q.pop()<<"\n";
+	 	q.push(4);
+	 	cout<<q.pop()<<"\n";
+	    cout<<q.pop()<<"\n";
+	    cout<<q.pop()<<"\n";
+	 }
+............................................................................................

@@ -1,0 +1,22 @@
+Program to print all substrings of a given string
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void substring(string s)
+{
+	int n=s.length();
+	
+	for(int i=0;i<n;i++){
+		for(int length=1;length<=n-i;length++){
+			cout<<s.substr(i,length)<<endl;
+		}
+	}
+	
+}
+
+int main()
+{
+	string s="abcd";
+	substring(s);
+}

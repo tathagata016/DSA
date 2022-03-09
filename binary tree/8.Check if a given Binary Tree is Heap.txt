@@ -1,0 +1,82 @@
+Check if a given Binary Tree is Heap
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node{
+	int data;
+	node* left;
+	node* right;
+	
+	node(int val)
+	{
+		data=val;
+		left=NULL;
+		right=NULL;
+	}
+};
+bool isHeap(node* root)
+{
+	if(root==NULL)
+	return true;
+	
+	queue<node* > q;
+	q.push(root);
+	
+	bool seen=false;
+	while(!q.empty())
+	{
+	node* n=q.front();
+	q.pop();
+	
+	if(n->left)
+	{
+		if(seen || n->left->data > n->data)
+		return false;
+		
+	q.push(n->left);
+		
+	}
+	
+	else{
+	seen =true;
+}
+	
+	if(n->right)
+	{
+		if(seen || n->right->data > n->data)
+		return false;
+		
+		q.push(n->right);
+	}
+	
+	else {
+	seen =true;
+	
+}
+	
+	}
+	return true;
+}
+int main()
+{
+    node* root = NULL;
+    root = new node(10);
+    root->left = new node(9);
+    root->right = new node(8);
+    root->left->left = new node(7);
+    root->left->right = new node(6);
+    root->right->left = new node(5);
+    root->right->right = new node(4);
+    root->left->left->left = new node(3);
+    root->left->left->right = new node(2);
+   root->left->right->left = new node(1);
+ 
+     //Function call
+    if (isHeap(root))
+        cout << "Given binary tree is a Heap\n";
+    else
+        cout << "Given binary tree is not a Heap\n";
+ 
+    return 0;
+}

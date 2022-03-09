@@ -1,0 +1,54 @@
+Reverse in linked list-
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node{
+	int data;
+	node* link;
+};
+
+node*head=NULL;
+void print(node* ptr)
+{
+	while(ptr!=NULL)
+	{
+		cout<<ptr->data<<"->";
+		ptr=ptr->link;
+	}
+	cout<<"NULL";
+}
+
+void insert(node** head_ref,int new_data){
+	node* new_node=new node;
+	new_node->data=new_data;
+	new_node->link=(*head_ref);
+	*head_ref=new_node;
+}
+void rev()
+{
+	node* current=head;
+	node* prev=NULL,*next=NULL;
+	while(current!=NULL)
+	{
+		next=current->link;
+		current->link=prev;
+		
+		prev=current;
+		current=next;
+	}
+	head=prev;
+}
+
+int main(){
+	insert(&head,5);
+	insert(&head,6);
+	insert(&head,7);
+	insert(&head,8);
+	cout<<"Linked list is: ";
+	print(head);
+	
+	rev();
+	cout<<"\n Reverse is: ";
+	print(head);
+}

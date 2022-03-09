@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+template<typename T>
+
+class Graph{
+    map<T,list<T>> l;
+
+public:
+void addEdge(T x,T y){
+l[x].push_back(y);
+l[y].push_back(x);
+}
+
+void bfs(T src) {
+	map<T, int> dist;
+ 	queue<T> q;
+
+		q.push(src);
+
+		// All other nodes will have inf dist
+		for (auto node_pair : l) {
+			dist[node_pair.first] = INT_MAX;
+		}
+		// Dist of src from src = 0
+		dist[src] = 0;
+
+		while (!q.empty()) {
+			T node = q.front();
+			q.pop();
+
+			// Push all neighbours of curr
+			for (auto nbr : l[node]) {
+				if (dist[nbr] == INT_MAX) { // nbr has not been visited yet
+					q.push(nbr);
+					dist[nbr] = dist[node] + 1; // Update distance
+				}
+			}
+		}
+
+		// Print dist to evry node
+		for (auto x : dist) {
+			cout <<"Node "<<x.first << " distance from src " << x.second << endl;
+		}
+
+	}
+
+};
+
+int main()
+{
+    Graph<int> g;
+    g.addEdge(0, 1);
+	g.addEdge(0, 3);
+	g.addEdge(2, 1);
+	g.addEdge(2, 3);
+	g.addEdge(3, 4);
+	g.addEdge(4, 5);
+
+    g.bfs(0);
+}

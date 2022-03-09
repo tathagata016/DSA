@@ -1,0 +1,25 @@
+Number of flips to make binary string alternate 
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int replacement(string str){
+	int ans=0;
+	int length=str.length();
+	for(int i=0;i<length;i++)
+	{
+		if(i%2==0 &&str[i]=='1')
+		ans++;
+		
+		if(i%2==1 && str[i]=='0')
+		ans++;
+		
+	}
+		return min(ans,length-ans);
+}
+
+int main()
+{
+	string str="0001010111";
+	cout<<"Minimum no of replacement is "<<replacement(str);
+}

@@ -1,0 +1,45 @@
+Converting Roman Numerals to Decimal
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int value(char ch){
+	if(ch=='I')
+	return 1;
+	if(ch=='V')
+	return 5;
+	if(ch=='X')
+	return 10;
+	if(ch=='L')
+	return 50;
+	if(ch=='C')
+	return 100;
+	if(ch=='D')
+	return 500;
+	if(ch=='M')
+	return 1000;
+	
+	return -1; 
+}
+
+int romantonos(string str){
+	int res=0;
+	int p=0;
+	int n=str.length()-1;
+	for(int i=n;i>=0;i--){
+		if(value(str[i])>=p)
+		res=res+value(str[i]);
+		else
+		res=res-value(str[i]);
+		
+		p=value(str[i]); //to keep the recorde of previous value
+	}
+	return res;
+}
+
+int main(){
+	string str="MCMIV";
+	cout<<"Roman to Integer: "<<romantonos(str);
+}

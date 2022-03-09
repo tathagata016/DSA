@@ -1,0 +1,15 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	char s[100]="Today is a rainy day";
+	char *ptr=strtok(s," "); //ptr points to the first token of the string
+	
+	while(ptr!=NULL)
+	{
+		cout<<ptr<<endl;
+		ptr=strtok(NULL," ");
+	}
+	
+	
+}

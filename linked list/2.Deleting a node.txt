@@ -1,0 +1,65 @@
+Deleting a node:-
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node{
+	int data;
+	node* link;
+};
+
+node* head=NULL;
+
+void print(node* ptr){
+	while(ptr!=NULL){
+		cout<<ptr->data<<" ";
+		ptr=ptr->link;
+	}
+}
+
+void insert(node** head_ref,int new_data)
+{
+	node* new_node=new node;
+	
+	new_node->data=new_data;
+	new_node->link=(*head_ref);
+	(*head_ref)=new_node;
+}
+
+void del(node** head_ref,int key)
+{
+	node* temp=(*head_ref);
+	node* prev=NULL;
+	if(temp!=NULL && temp->data==key)
+	{
+		*head_ref=temp->link;
+    }
+  else{
+  	while(temp!=NULL && temp->data!=key){
+  		prev=temp;
+  		temp=temp->link;
+	  }
+	  prev->link=temp->link;
+	  delete temp;
+  }
+
+}
+
+int main(){
+	insert(&head,5);
+	insert(&head,6);
+	insert(&head,7);
+	insert(&head,8);
+	cout<<"Linked list is: ";
+	print(head);
+	cout<<"\n";
+	del(&head,6);
+	cout<<"Updated Linked list is: ";
+	print(head);
+	
+	cout<<"\n";
+	del(&head,8);
+	cout<<"Updated Linked list is: ";
+	
+	print(head);
+}
